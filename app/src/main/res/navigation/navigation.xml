@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/navigation"
+    app:startDestination="@id/toDoFragment">
+    <fragment
+        android:id="@+id/toDoFragment"
+        android:name="com.example.tododer.ui.toDo.ToDoFragment"
+        android:label="Your todo list">
+        <argument
+            android:name="idTodo"
+            app:argType="integer" />
+        <action
+            android:id="@+id/action_toDoFragment_to_addToDoFragment"
+            app:destination="@id/addToDoFragment"
+            app:popUpTo="@+id/toDoFragment" />
+    </fragment>
+    <dialog
+        android:id="@+id/addToDoFragment"
+        android:name="com.example.tododer.ui.addTodo.AddToDoFragment"
+        android:label="AddToDoFragment" />
+</navigation>
