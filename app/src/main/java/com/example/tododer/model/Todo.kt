@@ -8,12 +8,14 @@ import java.util.*
 
 @Entity
 data class Todo(
-    @ColumnInfo(name = "title") var title:String?,
-    @ColumnInfo(name = "resume") var resume:String?,
-    @ColumnInfo(name = "isDone") var isDone:Boolean = false
+    @ColumnInfo(name = "title") var title: String?,
+    @ColumnInfo(name = "resume") var resume: String?,
+    @ColumnInfo(name = "isDone") var isDone: Boolean = false
 ) {
-    @PrimaryKey(autoGenerate = true) var id:Int = 0
-    @ColumnInfo(name = "date") var date = DateFormat.getDateTimeInstance().format(Date())
+    @PrimaryKey(autoGenerate = true)
+    var id: Long? = null
+    @ColumnInfo(name = "date")
+    var date = DateFormat.getDateTimeInstance().format(Date())
 }
 
 

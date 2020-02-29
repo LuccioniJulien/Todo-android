@@ -11,7 +11,11 @@ import com.example.tododer.R
 import com.example.tododer.model.Todo
 import kotlinx.android.synthetic.main.todo_item_layout.view.*
 
-class RvAdapterToDo(private var todos: MutableList<Todo>, private val update: (Todo) -> Unit) :
+class RvAdapterToDo(
+    private var todos: MutableList<Todo>,
+    private val update: (Todo) -> Unit,
+    private val seeDetail: (View, Long) -> Unit
+) :
     RecyclerView.Adapter<RvAdapterToDo.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -36,11 +40,10 @@ class RvAdapterToDo(private var todos: MutableList<Todo>, private val update: (T
             .flatMap { it.value }
         if (new.count() == 1) {
             todos.add(0, new[0])
-            notifyItemChanged(0)
         } else {
             todos = new.toMutableList()
-            notifyItemRangeChanged(0, todos.size - 1)
         }
+        notifyItemRangeChanged(0, todos.size - 1)
     }
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -50,6 +53,8 @@ class RvAdapterToDo(private var todos: MutableList<Todo>, private val update: (T
             todoRow.tvwTitle.text = todo.title
             todoRow.tvwMessage.text = todo.resume
             todoRow.cbxIsDone.isChecked = todo.isDone
+
+            todoRow.setOnClickListener { seeDetail(it, todo.id ?: 0) }
 
             handleStrikeWord(todo.isDone)
 

@@ -31,7 +31,7 @@ class ToDoFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         rcvTodos.layoutManager = LinearLayoutManager(context)
-        _rcv = RvAdapterToDo(mutableListOf()) { update(it) }
+        _rcv = RvAdapterToDo(mutableListOf(), { update(it) }, { v, id -> navigateDetail(v, id) })
         rcvTodos.adapter = _rcv
 
         _viewModel.todos.observe(viewLifecycleOwner) {
@@ -50,5 +50,9 @@ class ToDoFragment : Fragment() {
 
     private fun navigateAddToDo(view: View) {
         view.findNavController().navigate(R.id.action_toDoFragment_to_addToDoFragment)
+    }
+
+    private fun navigateDetail(view: View, id: Long) {
+        view.findNavController().navigate(R.id.action_toDoFragment_to_detailTodoFragment)
     }
 }

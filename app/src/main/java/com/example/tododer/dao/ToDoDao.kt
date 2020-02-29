@@ -13,7 +13,7 @@ interface ToDoDao {
     suspend fun loadOneByUid(uid: Int): Todo
 
     @Insert
-    suspend fun insert(vararg todo: Todo)
+    suspend fun insert(todo: Todo): Long
 
     @Update
     suspend fun update(todo: Todo)

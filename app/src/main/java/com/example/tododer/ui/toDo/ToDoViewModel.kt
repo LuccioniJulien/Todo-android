@@ -40,7 +40,7 @@ class ToDoViewModel(app: Application) : AndroidViewModel(app) {
 
     fun addTodo(todo: Todo) {
         viewModelScope.launch {
-            _db?.todoDao()?.insert(todo)
+            todo.id = _db?.todoDao()?.insert(todo) ?: 0
             _liveTodos.value?.add(todo)
             _liveTodos.value = _liveTodos.value
         }
