@@ -17,15 +17,20 @@
             app:popUpTo="@+id/toDoFragment" />
         <action
             android:id="@+id/action_toDoFragment_to_detailTodoFragment"
-            app:destination="@id/detailTodoFragment" />
+            app:destination="@id/detailTodoFragment"
+            app:popUpTo="@+id/toDoFragment" />
     </fragment>
     <dialog
         android:id="@+id/addToDoFragment"
         android:name="com.example.tododer.ui.addTodo.AddToDoFragment"
         android:label="AddToDoFragment" />
-    <fragment
+    <dialog
         android:id="@+id/detailTodoFragment"
         android:name="com.example.tododer.ui.detailTodo.DetailTodoFragment"
         android:label="fragment_detail"
-        tools:layout="@layout/fragment_detail" />
+        tools:layout="@layout/fragment_detail" >
+        <argument
+            android:name="idTodo"
+            app:argType="long" />
+    </dialog>
 </navigation>
