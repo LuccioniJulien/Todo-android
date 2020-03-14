@@ -36,8 +36,6 @@ class ToDoViewModel(app: Application) : AndroidViewModel(app) {
         }
     }
 
-    fun getPosition(todo: Todo): Int = _liveTodos.value?.indexOf(todo) as Int
-
     fun addTodo(todo: Todo) {
         viewModelScope.launch {
             todo.id = _db?.todoDao()?.insert(todo) ?: 0
@@ -49,6 +47,14 @@ class ToDoViewModel(app: Application) : AndroidViewModel(app) {
     fun update(todo: Todo) {
         viewModelScope.launch {
             _db?.todoDao()?.update(todo)
+        }
+    }
+
+    fun delete(todo: Todo) {
+        viewModelScope.launch {
+            _db?.todoDao()?.delete(todo)
+            _liveTodos.value?.remove(todo)
+            _liveTodos.value =  _liveTodos.value
         }
     }
 }

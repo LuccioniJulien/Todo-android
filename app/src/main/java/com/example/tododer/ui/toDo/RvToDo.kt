@@ -34,16 +34,35 @@ class RvAdapterToDo(
         holder.bind(todos[position], update)
     }
 
-    fun setNewTodos(newTodos: List<Todo>) {
-        val new = (newTodos + todos).groupBy { it.id }
-            .filter { it.value.size == 1 }
-            .flatMap { it.value }
-        if (new.count() == 1) {
-            todos.add(0, new[0])
-        } else {
-            todos = new.toMutableList()
-        }
+    private fun add(todo: Todo) {
+        todos.add(0, todo)
         notifyItemRangeChanged(0, todos.size - 1)
+    }
+
+    private fun delete(newTodos: List<Todo>) {
+        val index = todos.indexOfFirst { !todos.contains(it) }
+        if (index != -1) {
+            todos.removeAt(index)
+            notifyItemRemoved(index)
+        }
+    }
+
+    private fun init(newTodos: List<Todo>) {
+        todos = newTodos.toMutableList()
+        notifyItemRangeChanged(0, todos.size - 1)
+    }
+
+    fun setNewTodos(newTodos: List<Todo>) {
+        val newLength = newTodos.size
+        val oldLength = todos.size
+
+        when (oldLength - newLength) {
+            -1 -> add(newTodos.last())
+            1 -> delete(newTodos)
+            else -> {
+                init(newTodos)
+            }
+        }
     }
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {

@@ -43,9 +43,7 @@ class ToDoFragment : Fragment() {
     }
 
     private fun update(todo: Todo) {
-        val pos = _viewModel.getPosition(todo)
         _viewModel.update(todo)
-        _rcv.notifyItemChanged(pos)
     }
 
     private fun navigateAddToDo(view: View) {
@@ -53,6 +51,7 @@ class ToDoFragment : Fragment() {
     }
 
     private fun navigateDetail(view: View, id: Long) {
+
         view.findNavController().navigate(R.id.action_toDoFragment_to_detailTodoFragment)
     }
 }
