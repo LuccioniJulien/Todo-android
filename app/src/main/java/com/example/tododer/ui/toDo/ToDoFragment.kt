@@ -14,6 +14,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.tododer.R
 import com.example.tododer.extension.hideKeyboard
 import com.example.tododer.model.Todo
+import com.example.tododer.ui.detailTodo.DetailTodoFragment
+import com.example.tododer.ui.detailTodo.DetailTodoFragmentArgs
 import kotlinx.android.synthetic.main.fragment_to_do.*
 
 class ToDoFragment : Fragment() {
@@ -51,7 +53,7 @@ class ToDoFragment : Fragment() {
     }
 
     private fun navigateDetail(view: View, id: Long) {
-
-        view.findNavController().navigate(R.id.action_toDoFragment_to_detailTodoFragment)
+        val action = ToDoFragmentDirections.actionToDoFragmentToDetailTodoFragment(id)
+        view.findNavController().navigate(action)
     }
 }

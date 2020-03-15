@@ -87,5 +87,4 @@ dependencies {
 
     kapt 'com.android.databinding:compiler:2.3.1'
     apply plugin: "androidx.navigation.safeargs.kotlin"
-
 }

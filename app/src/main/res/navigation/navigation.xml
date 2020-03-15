@@ -7,10 +7,8 @@
     <fragment
         android:id="@+id/toDoFragment"
         android:name="com.example.tododer.ui.toDo.ToDoFragment"
-        android:label="Your todo list">
-        <argument
-            android:name="idTodo"
-            app:argType="integer" />
+        android:label="Your todo list"
+        tools:layout="@layout/fragment_to_do">
         <action
             android:id="@+id/action_toDoFragment_to_addToDoFragment"
             app:destination="@id/addToDoFragment"
@@ -18,17 +16,18 @@
         <action
             android:id="@+id/action_toDoFragment_to_detailTodoFragment"
             app:destination="@id/detailTodoFragment"
-            app:popUpTo="@+id/toDoFragment" />
+            app:popUpTo="@+id/toDoFragment"></action>
     </fragment>
     <dialog
         android:id="@+id/addToDoFragment"
         android:name="com.example.tododer.ui.addTodo.AddToDoFragment"
-        android:label="AddToDoFragment" />
+        android:label="AddToDoFragment"
+        tools:layout="@layout/fragment_add_to_do" />
     <dialog
         android:id="@+id/detailTodoFragment"
         android:name="com.example.tododer.ui.detailTodo.DetailTodoFragment"
         android:label="fragment_detail"
-        tools:layout="@layout/fragment_detail" >
+        tools:layout="@layout/fragment_detail">
         <argument
             android:name="idTodo"
             app:argType="long" />

@@ -40,7 +40,7 @@ class RvAdapterToDo(
     }
 
     private fun delete(newTodos: List<Todo>) {
-        val index = todos.indexOfFirst { !todos.contains(it) }
+        val index = todos.indexOfFirst { !newTodos.contains(it) }
         if (index != -1) {
             todos.removeAt(index)
             notifyItemRemoved(index)

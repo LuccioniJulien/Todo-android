@@ -1,19 +1,20 @@
 package com.example.tododer.ui.detailTodo
 
-import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.NavHostFragment
+import com.example.tododer.DetailBinding
 import com.example.tododer.R
+import com.example.tododer.model.Todo
 import com.example.tododer.ui.toDo.ToDoViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-
+import kotlinx.android.synthetic.main.fragment_detail.*
 
 class DetailTodoFragment : BottomSheetDialogFragment() {
 
@@ -24,13 +25,30 @@ class DetailTodoFragment : BottomSheetDialogFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_detail, container, false)
+        val binding = DataBindingUtil.inflate<DetailBinding>(
+            inflater,
+            R.layout.fragment_detail,
+            container,
+            false
+        )
+        binding.viewModel = viewModel
+        return binding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        // TODO: Use the ViewModel
-        Toast.makeText(context, "Todo added", Toast.LENGTH_LONG).show()
+        arguments?.let {
+            val id = DetailTodoFragmentArgs.fromBundle(it).idTodo
+            val todo = _todosViewModel.getTodoFromList(id)
+            viewModel.todoLiveData.value = todo
+            deleteButton.setOnClickListener { delete(todo as Todo) }
+        }
+    }
+
+    private fun delete(todo: Todo) {
+        _todosViewModel.delete(todo)
+        Toast.makeText(context, "Todo deleted", Toast.LENGTH_LONG).show()
+        NavHostFragment.findNavController(this).navigateUp()
     }
 
 }

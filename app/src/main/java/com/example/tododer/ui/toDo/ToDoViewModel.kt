@@ -36,6 +36,8 @@ class ToDoViewModel(app: Application) : AndroidViewModel(app) {
         }
     }
 
+    fun getTodoFromList(id: Long): Todo? = todos.value?.find { it.id == id }
+
     fun addTodo(todo: Todo) {
         viewModelScope.launch {
             todo.id = _db?.todoDao()?.insert(todo) ?: 0
@@ -54,7 +56,7 @@ class ToDoViewModel(app: Application) : AndroidViewModel(app) {
         viewModelScope.launch {
             _db?.todoDao()?.delete(todo)
             _liveTodos.value?.remove(todo)
-            _liveTodos.value =  _liveTodos.value
+            _liveTodos.value = _liveTodos.value
         }
     }
 }

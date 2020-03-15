@@ -10,7 +10,7 @@ interface ToDoDao {
     suspend fun getAll(): List<Todo>
 
     @Query("SELECT * FROM Todo WHERE id = :uid")
-    suspend fun loadOneByUid(uid: Int): Todo
+    suspend fun loadOneByUid(uid: Long): Todo
 
     @Insert
     suspend fun insert(todo: Todo): Long
