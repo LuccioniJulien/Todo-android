@@ -66,11 +66,10 @@ class RvAdapterToDo(
     }
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        var todoRow = view
+        private var todoRow = view
 
         fun bind(todo: Todo, update: (Todo) -> Unit) {
             todoRow.tvwTitle.text = todo.title
-            todoRow.tvwMessage.text = todo.resume
             todoRow.cbxIsDone.isChecked = todo.isDone
 
             todoRow.setOnClickListener { seeDetail(it, todo.id ?: 0) }

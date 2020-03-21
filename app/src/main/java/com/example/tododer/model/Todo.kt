@@ -10,12 +10,9 @@ import java.util.*
 data class Todo(
     @ColumnInfo(name = "title") var title: String?,
     @ColumnInfo(name = "resume") var resume: String?,
-    @ColumnInfo(name = "isDone") var isDone: Boolean = false
-) {
+    @ColumnInfo(name = "isDone") var isDone: Boolean = false,
     @PrimaryKey(autoGenerate = true)
-    var id: Long? = null
+    var id: Long? = null,
     @ColumnInfo(name = "date")
-    var date = DateFormat.getDateTimeInstance().format(Date())
-}
-
-
+    var date: String = DateFormat.getDateTimeInstance().format(Date())
+)

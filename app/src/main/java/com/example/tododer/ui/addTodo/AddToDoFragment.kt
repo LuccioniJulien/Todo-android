@@ -12,13 +12,12 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.NavHostFragment
 import com.example.tododer.AddTodoBinding
 import com.example.tododer.R
-import com.example.tododer.model.Todo
 import com.example.tododer.ui.toDo.ToDoViewModel
 import kotlinx.android.synthetic.main.fragment_add_to_do.*
 
 class AddToDoFragment : DialogFragment() {
 
-    private val viewModel: AddTodoViewModel by activityViewModels()
+    private val _viewModel: AddTodoViewModel by viewModels()
     private val _todosViewModel: ToDoViewModel by activityViewModels()
 
     override fun onCreateView(
@@ -31,6 +30,8 @@ class AddToDoFragment : DialogFragment() {
             container,
             false
         )
+        binding.lifecycleOwner = this
+        binding.viewModel = _viewModel
         return binding.root
     }
 
@@ -40,9 +41,10 @@ class AddToDoFragment : DialogFragment() {
     }
 
     private fun createTodo(view: View) {
-        val todo = Todo(txtTitle.text?.trim().toString(), txtResume.text?.trim().toString())
-        _todosViewModel.addTodo(todo)
-        Toast.makeText(context, "Todo added", Toast.LENGTH_LONG).show()
-        NavHostFragment.findNavController(this).navigateUp()
+        _viewModel.getTodo()?.let {
+            _todosViewModel.addTodo(it)
+            Toast.makeText(context, "Todo added", Toast.LENGTH_LONG).show()
+            NavHostFragment.findNavController(this).navigateUp()
+        }
     }
 }
